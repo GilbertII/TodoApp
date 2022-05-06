@@ -4,15 +4,27 @@ import FirstComponent from "./components/example/FirstComponent";
 import SecondComponent from "./components/example/SecondComponent";
 import ThirdComponent from "./components/example/ThirdComponent";
 import "./App.css";
+import Counter from "./components/counter/Counter";
 
 class App extends Component {
   render() {
     return (
       <div className="App">
+        <ExampleComponent />
+      </div>
+    );
+  }
+}
+
+class ExampleComponent extends Component {
+  render() {
+    return (
+      <div>
         Todo Application
         <FirstComponent />
         <SecondComponent />
         <ThirdComponent />
+        <Counter />
       </div>
     );
   }
