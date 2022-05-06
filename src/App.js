@@ -19,11 +19,7 @@ class App extends Component {
 class ExampleComponent extends Component {
   render() {
     return (
-      <div>
-        Todo Application
-        <FirstComponent />
-        <SecondComponent />
-        <ThirdComponent />
+      <div className="exampleComponent">
         <Counter />
       </div>
     );
