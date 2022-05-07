@@ -1,4 +1,5 @@
 import { Component, useState } from "react";
+import PropTypes from "prop-types";
 import classes from "./Counter.module.css";
 
 class Counter extends Component {
@@ -46,4 +47,13 @@ function Counter() {
   );
 }
 */
+
+Counter.defaultProps = {
+  incBy: 1,
+};
+
+Counter.propTypes = {
+  incBy: PropTypes.number,
+};
+
 export default Counter;
