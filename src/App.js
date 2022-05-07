@@ -19,8 +19,10 @@ class App extends Component {
 class ExampleComponent extends Component {
   render() {
     return (
-      <div className="exampleComponent">
-        <Counter />
+      <div className="App">
+        <Counter incBy={1} />
+        <Counter incBy={5} />
+        <Counter incBy={10} />
       </div>
     );
   }

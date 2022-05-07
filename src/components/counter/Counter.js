@@ -15,14 +15,14 @@ class Counter extends Component {
 
   increamentHandler() {
     this.setState({
-      counter: this.state.counter + 1,
+      counter: this.state.counter + this.props.incBy,
     });
   }
 
   render() {
     return (
       <div>
-        <button onClick={this.increamentHandler}>+1</button>
+        <button onClick={this.increamentHandler}>+{this.props.incBy}</button>
         <span className={classes.count}>{this.state.counter}</span>
       </div>
     );
