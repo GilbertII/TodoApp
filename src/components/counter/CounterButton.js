@@ -7,17 +7,23 @@ class CounterButton extends Component {
     super();
 
     // bind function
-    this.increamentHandler = this.increamentHandler.bind(this);
+    this.incrementHandler = this.incrementHandler.bind(this);
+    this.decrementHandler = this.decrementHandler.bind(this);
   }
 
-  increamentHandler() {
-    this.props.sumIncreamentHandler(this.props.incBy);
+  incrementHandler() {
+    this.props.sumIncrementHandler(this.props.incBy);
+  }
+
+  decrementHandler() {
+    this.props.sumDecrementHandler(this.props.incBy);
   }
 
   render() {
     return (
       <div>
-        <button onClick={this.increamentHandler}>+{this.props.incBy}</button>
+        <button onClick={this.incrementHandler}>+{this.props.incBy}</button>
+        <button onClick={this.decrementHandler}>-{this.props.incBy}</button>
       </div>
     );
   }

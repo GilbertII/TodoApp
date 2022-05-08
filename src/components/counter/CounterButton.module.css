@@ -1,8 +1,9 @@
 button {
-  background-color: yellowgreen;
-  border-color: green;
+  background-color: rgb(94, 140, 4);
+  border-color: rgb(199, 199, 199);
   font-size: 20px;
   padding: 15px 30px;
   color: white;
   width: 100px;
+  margin: 1px;
 }
