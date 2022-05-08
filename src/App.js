@@ -21,9 +21,6 @@ class ExampleComponent extends Component {
     return (
       <div className="App">
         <Counter />
-        <Counter incBy="1" />
-        <Counter incBy={5} />
-        <Counter incBy={10} />
       </div>
     );
   }

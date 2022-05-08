@@ -1,59 +1,36 @@
-import { Component, useState } from "react";
-import PropTypes from "prop-types";
-import classes from "./Counter.module.css";
+import React, { Component } from "react";
+import CounterButton from "./CounterButton";
+import CounterLabel from "./CounterLabel";
 
 class Counter extends Component {
   constructor() {
     super();
 
     this.state = {
-      counter: 0,
+      totalCounter: 0,
     };
 
     // bind function
-    this.increamentHandler = this.increamentHandler.bind(this);
+    this.sumIncreamentHandler = this.sumIncreamentHandler.bind(this);
   }
 
-  increamentHandler() {
-    this.setState({
-      counter: this.state.counter + this.props.incBy,
+  sumIncreamentHandler(incBy) {
+    this.setState((prevState) => {
+      return { totalCounter: prevState.totalCounter + incBy };
     });
+    console.log(incBy);
   }
 
   render() {
     return (
       <div>
-        <button onClick={this.increamentHandler}>+{this.props.incBy}</button>
-        <span className={classes.count}>{this.state.counter}</span>
+        <CounterButton incBy={1} sumIncreamentHandler={this.sumIncreamentHandler} />
+        <CounterButton incBy={2} sumIncreamentHandler={this.sumIncreamentHandler} />
+        <CounterButton incBy={3} sumIncreamentHandler={this.sumIncreamentHandler} />
+        <CounterLabel totalInc={this.state.totalCounter} />
       </div>
     );
   }
 }
-
-/*
-// Function Format
-function Counter() {
-  const [count, setCount] = useState(0);
-
-  function onClickHandler() {
-    setCount(count + 1);
-  }
-
-  return (
-    <div>
-      <button onClick={onClickHandler}>+1</button>
-      <span className={classes.count}>{count}</span>
-    </div>
-  );
-}
-*/
-
-Counter.defaultProps = {
-  incBy: 1,
-};
-
-Counter.propTypes = {
-  incBy: PropTypes.number,
-};
 
 export default Counter;
