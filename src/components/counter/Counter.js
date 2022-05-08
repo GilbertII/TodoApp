@@ -14,19 +14,19 @@ class Counter extends Component {
     };
 
     // bind function
-    this.sumIncrementHandler = this.sumIncrementHandler.bind(this);
-    this.sumDecrementHandler = this.sumDecrementHandler.bind(this);
+    this.incrementHandler = this.incrementHandler.bind(this);
+    this.decrementHandler = this.decrementHandler.bind(this);
     this.resetHandler = this.resetHandler.bind(this);
   }
 
-  sumIncrementHandler(incBy) {
+  incrementHandler(incBy) {
     this.setState((prevState) => {
       return { totalCounter: prevState.totalCounter + incBy };
     });
     console.log(`increment by ${incBy}`);
   }
 
-  sumDecrementHandler(incBy) {
+  decrementHandler(incBy) {
     this.setState((prevState) => {
       return { totalCounter: prevState.totalCounter - incBy };
     });
@@ -44,19 +44,24 @@ class Counter extends Component {
     return (
       <div>
         <CounterButton
+          incBy={1000}
+          incrementHandler={this.incrementHandler}
+          decrementHandler={this.decrementHandler}
+        />
+        <CounterButton
+          incBy={100}
+          incrementHandler={this.incrementHandler}
+          decrementHandler={this.decrementHandler}
+        />
+        <CounterButton
+          incBy={10}
+          incrementHandler={this.incrementHandler}
+          decrementHandler={this.decrementHandler}
+        />{" "}
+        <CounterButton
           incBy={1}
-          sumIncrementHandler={this.sumIncrementHandler}
-          sumDecrementHandler={this.sumDecrementHandler}
-        />
-        <CounterButton
-          incBy={2}
-          sumIncrementHandler={this.sumIncrementHandler}
-          sumDecrementHandler={this.sumDecrementHandler}
-        />
-        <CounterButton
-          incBy={3}
-          sumIncrementHandler={this.sumIncrementHandler}
-          sumDecrementHandler={this.sumDecrementHandler}
+          incrementHandler={this.incrementHandler}
+          decrementHandler={this.decrementHandler}
         />
         <CounterLabel totalInc={this.state.totalCounter} />
         <ResetButton resetHandler={this.resetHandler} />
