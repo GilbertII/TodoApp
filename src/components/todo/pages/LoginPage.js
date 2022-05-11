@@ -29,6 +29,8 @@ class LoginComponent extends Component {
   handleLoginClick() {
     // username: test, password: test
     if (this.state.username === "test" && this.state.password === "test") {
+      this.props.navigate("/welcome");
+
       console.log("success");
       this.setState({ isLoginSuccess: true, isLoginFailed: false });
     } else {

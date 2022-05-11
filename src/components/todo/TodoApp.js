@@ -1,23 +1,22 @@
-import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import React from "react";
+import { Route, Routes } from "react-router-dom";
 
-import LoginComponent from "./pages/LoginPage";
+import LoginPage from "./pages/LoginPage";
 import WelcomePage from "./pages/WelcomePage";
+import PageNavigation from "./navigation/PageNavigation";
 
-class TodoApp extends Component {
-  render() {
-    return (
-      <div>
-        <Router>
-          <Routes>
-            <Route path="/" element={<LoginComponent />} />
-            <Route path="/login" element={<LoginComponent />} />
-            <Route path="/welcome" element={<WelcomePage />} />
-          </Routes>
-        </Router>
-      </div>
-    );
-  }
+function TodoApp() {
+  const LoginPageNavigation = PageNavigation(LoginPage);
+
+  return (
+    <div>
+      <Routes>
+        <Route path="/" element={<LoginPageNavigation />} />
+        <Route path="/login" element={<LoginPageNavigation />} />
+        <Route path="/welcome" element={<WelcomePage />} />
+      </Routes>
+    </div>
+  );
 }
 
 export default TodoApp;
