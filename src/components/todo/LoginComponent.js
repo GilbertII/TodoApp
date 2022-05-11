@@ -7,8 +7,8 @@ class LoginComponent extends Component {
     this.state = {
       username: "",
       password: "",
-      isLoginSuccess: 0,
-      isLoginFailed: 0,
+      isLoginSuccess: false,
+      isLoginFailed: false,
     };
 
     this.handleOnChange = this.handleOnChange.bind(this);
@@ -30,10 +30,10 @@ class LoginComponent extends Component {
     // username: test, password: test
     if (this.state.username === "test" && this.state.password === "test") {
       console.log("success");
-      this.setState({ isLoginSuccess: 1, isLoginFailed: 0 });
+      this.setState({ isLoginSuccess: true, isLoginFailed: false });
     } else {
       console.log("failed");
-      this.setState({ isLoginSuccess: 0, isLoginFailed: 1 });
+      this.setState({ isLoginSuccess: false, isLoginFailed: true });
     }
   }
 
@@ -67,8 +67,8 @@ class LoginComponent extends Component {
 function LoginMessage(props) {
   return (
     <div>
-      {props.isLoginSuccess ? <span>Login Successul!</span> : ""}
-      {props.isLoginFailed ? <span>Invalid Credentials</span> : ""}
+      {props.isLoginSuccess && <span>Login Successul!</span>}
+      {props.isLoginFailed && <span>Invalid Credentials</span>}
     </div>
   );
 }
