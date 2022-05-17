@@ -18,7 +18,7 @@ class TodoApp extends Component {
         <Routes>
           <Route path="/" element={<LoginPageWithNavigation />} />
           <Route path="/login" element={<LoginPageWithNavigation />} />
-          <Route path="/welcome/:name" element={<WelcomePageWithParams />} />
+          <Route path="/welcome/:username" element={<WelcomePageWithParams />} />
           <Route path="/todos" element={<TodoList />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
