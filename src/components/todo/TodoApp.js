@@ -1,24 +1,28 @@
-import React from "react";
+import React, { Component } from "react";
 import { Route, Routes } from "react-router-dom";
 
 import LoginPage from "./pages/LoginPage";
 import WelcomePage from "./pages/WelcomePage";
-import PageNavigation from "./navigation/PageNavigation";
+import withNavigation from "./navigation/withNavigation";
 import ErrorPage from "./pages/ErrorPage";
+import withParams from "./params/withParams";
 
-function TodoApp() {
-  const LoginPageNavigation = PageNavigation(LoginPage);
+class TodoApp extends Component {
+  render() {
+    const LoginPageWithNavigation = withNavigation(LoginPage);
 
-  return (
-    <div>
-      <Routes>
-        <Route path="/" element={<LoginPageNavigation />} />
-        <Route path="/login" element={<LoginPageNavigation />} />
-        <Route path="/welcome" element={<WelcomePage />} />
-        <Route path="*" element={<ErrorPage />} />
-      </Routes>
-    </div>
-  );
+    const WelcomePageWithParams = withParams(WelcomePage);
+    return (
+      <div>
+        <Routes>
+          <Route path="/" element={<LoginPageWithNavigation />} />
+          <Route path="/login" element={<LoginPageWithNavigation />} />
+          <Route path="/welcome/:name" element={<WelcomePageWithParams />} />
+          <Route path="*" element={<ErrorPage />} />
+        </Routes>
+      </div>
+    );
+  }
 }
 
 export default TodoApp;
