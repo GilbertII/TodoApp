@@ -6,6 +6,7 @@ import WelcomePage from "./pages/WelcomePage";
 import withNavigation from "./navigation/withNavigation";
 import ErrorPage from "./pages/ErrorPage";
 import withParams from "./params/withParams";
+import TodoList from "./component/TodoList";
 
 class TodoApp extends Component {
   render() {
@@ -18,6 +19,7 @@ class TodoApp extends Component {
           <Route path="/" element={<LoginPageWithNavigation />} />
           <Route path="/login" element={<LoginPageWithNavigation />} />
           <Route path="/welcome/:name" element={<WelcomePageWithParams />} />
+          <Route path="/todos" element={<TodoList />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
       </div>
