@@ -17,13 +17,13 @@ class TodoList extends Component {
     return (
       <div>
         <h1>List Todos</h1>
-        <table>
+        <table className="table table-hover">
           <thead>
             <tr>
-              <th>ID</th>
-              <th>Description</th>
-              <th>Target Date</th>
-              <th>Is Completed?</th>
+              <th scope="col">ID</th>
+              <th scope="col">Description</th>
+              <th scope="col">Target Date</th>
+              <th scope="col">Is Completed?</th>
             </tr>
           </thead>
           <tbody>

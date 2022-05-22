@@ -10,7 +10,7 @@ import TodoList from "./component/TodoList";
 import Header from "./component/Header";
 import Footer from "./component/Footer";
 
-import "./bootstrap.css";
+import LogoutPage from "./pages/LogoutPage";
 
 class TodoApp extends Component {
   render() {
@@ -25,6 +25,7 @@ class TodoApp extends Component {
           <Route path="/login" element={<LoginPageWithNavigation />} />
           <Route path="/welcome/:username" element={<WelcomePageWithParams />} />
           <Route path="/todos" element={<TodoList />} />
+          <Route path="/logout" element={<LogoutPage />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
         <Footer />
