@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
+
+import "./LoginPage.module.css";
 
 class LoginComponent extends Component {
   constructor() {
@@ -42,25 +45,30 @@ class LoginComponent extends Component {
   render() {
     return (
       <div>
+        <h1>Login</h1>
         <LoginMessage
           isLoginSuccess={this.state.isLoginSuccess}
           isLoginFailed={this.state.isLoginFailed}
         />
-        Username:
-        <input
-          type="text"
-          name="username"
-          value={this.state.username}
-          onChange={this.handleOnChange}
-        />
-        Password:
-        <input
-          type="password"
-          name="password"
-          value={this.state.password}
-          onChange={this.handleOnChange}
-        />
-        <button onClick={this.handleLoginClick}>Login</button>
+        <div className="container">
+          Username:
+          <input
+            type="text"
+            name="username"
+            value={this.state.username}
+            onChange={this.handleOnChange}
+          />
+          Password:
+          <input
+            type="password"
+            name="password"
+            value={this.state.password}
+            onChange={this.handleOnChange}
+          />
+          <button className="btn btn-success" onClick={this.handleLoginClick}>
+            Login
+          </button>
+        </div>
       </div>
     );
   }
@@ -68,9 +76,9 @@ class LoginComponent extends Component {
 
 function LoginMessage(props) {
   return (
-    <div>
-      {props.isLoginSuccess && <span>Login Successul!</span>}
-      {props.isLoginFailed && <span>Invalid Credentials</span>}
+    <div className="container">
+      {props.isLoginFailed && <div className="alert alert-warning">Invalid Credentials</div>}
+      {props.isLoginSuccess && <div>Login Successul!</div>}
     </div>
   );
 }
