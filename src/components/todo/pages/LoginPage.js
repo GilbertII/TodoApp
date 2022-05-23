@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import AuthenticationService from "../AuthenticationService";
 
 import "./LoginPage.module.css";
 
@@ -32,6 +33,8 @@ class LoginComponent extends Component {
   handleLoginClick() {
     // username: test, password: test
     if (this.state.username === "test" && this.state.password === "test") {
+      AuthenticationService.registerSuccessfulLogin(this.state.username, this.state.password);
+
       this.props.navigate(`/welcome/${this.state.username}`);
 
       console.log("success");
