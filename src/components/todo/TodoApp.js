@@ -13,22 +13,45 @@ import TodoList from "./component/TodoList";
 import Header from "./component/Header";
 import Footer from "./component/Footer";
 
-import AuthenticationService from "./AuthenticationService.js";
+import AuthenticatedRoute from "./AuthenticatedRoute";
 
 class TodoApp extends Component {
   render() {
     const LoginPageWithNavigation = withNavigation(LoginPage);
 
     const WelcomePageWithParams = withParams(WelcomePage);
+
+    const HeaderWithNavigation = withNavigation(Header);
     return (
       <div>
-        <Header />
+        <HeaderWithNavigation />
         <Routes>
           <Route path="/" element={<LoginPageWithNavigation />} />
           <Route path="/login" element={<LoginPageWithNavigation />} />
-          <Route path="/welcome/:username" element={<WelcomePageWithParams />} />
-          <Route path="/todos" element={<TodoList />} />
-          <Route path="/logout" element={<LogoutPage />} />
+          <Route
+            path="/welcome/:username"
+            element={
+              <AuthenticatedRoute>
+                <WelcomePageWithParams />
+              </AuthenticatedRoute>
+            }
+          />
+          <Route
+            path="/todos"
+            element={
+              <AuthenticatedRoute>
+                <TodoList />
+              </AuthenticatedRoute>
+            }
+          />
+          <Route
+            path="/logout"
+            element={
+              <AuthenticatedRoute>
+                <LogoutPage />
+              </AuthenticatedRoute>
+            }
+          />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
         <Footer />

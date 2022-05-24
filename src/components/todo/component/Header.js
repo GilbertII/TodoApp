@@ -1,8 +1,13 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import AuthenticationService from "../AuthenticationService";
 
 class Header extends Component {
   render() {
+    const isUserLoggedIn = AuthenticationService.isUserLoggedIn();
+
+    console.log(isUserLoggedIn);
+
     return (
       <header>
         <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -23,26 +28,34 @@ class Header extends Component {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav mr-auto">
               <li className="nav-item active">
-                <Link className="nav-link" to="/welcome/test">
-                  Home
-                </Link>
+                {isUserLoggedIn && (
+                  <Link className="nav-link" to="/welcome/test">
+                    Home
+                  </Link>
+                )}
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/todos">
-                  Todos
-                </Link>
+                {isUserLoggedIn && (
+                  <Link className="nav-link" to="/todos">
+                    Todos
+                  </Link>
+                )}
               </li>
             </ul>
             <ul className="navbar-nav mr-auto navbar-collapse justify-content-end">
               <li className="nav-item">
-                <Link className="nav-link" to="/login">
-                  Login
-                </Link>
+                {!isUserLoggedIn && (
+                  <Link className="nav-link" to="/login">
+                    Login
+                  </Link>
+                )}
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/logout">
-                  Logout
-                </Link>
+                {isUserLoggedIn && (
+                  <Link className="nav-link" to="/logout" onClick={AuthenticationService.logout}>
+                    Logout
+                  </Link>
+                )}
               </li>
             </ul>
           </div>
