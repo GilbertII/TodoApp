@@ -15,7 +15,7 @@ class WelcomePage extends Component {
 
   retrieveWelcomeMessage() {
     console.log("Welcome Message here!");
-    HelloWorldService.executeHelloWorldBeanService().then((res) =>
+    HelloWorldService.executeHelloWorldBeanPathVarService(this.props.params.username).then((res) =>
       this.handleSuccessfulResponse(res)
     );
   }

@@ -15,7 +15,7 @@ class HelloWorldService {
   executeHelloWorldBeanPathVarService(name) {
     // console.log("Executed service");
 
-    return axios.get(`http://localhost:8080/api/hello/getHelloWorldBean/${name}`);
+    return axios.get(`http://localhost:8080/api/hello/getHelloWorldBeanPathVar/${name}`);
   }
 }
 
