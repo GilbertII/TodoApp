@@ -8,6 +8,7 @@ class WelcomePage extends Component {
 
     this.retrieveWelcomeMessage = this.retrieveWelcomeMessage.bind(this);
     this.handleSuccessfulResponse = this.handleSuccessfulResponse.bind(this);
+    this.handleErrorResponse = this.handleErrorResponse.bind(this);
     this.state = {
       welcomeMessage: "",
     };
@@ -15,9 +16,9 @@ class WelcomePage extends Component {
 
   retrieveWelcomeMessage() {
     console.log("Welcome Message here!");
-    HelloWorldService.executeHelloWorldBeanPathVarService(this.props.params.username).then((res) =>
-      this.handleSuccessfulResponse(res)
-    );
+    HelloWorldService.executeHelloWorldBeanPathVarService(this.props.params.username)
+      .then((res) => this.handleSuccessfulResponse(res))
+      .catch((error) => this.handleErrorResponse(error));
   }
 
   handleSuccessfulResponse(res) {
@@ -25,6 +26,11 @@ class WelcomePage extends Component {
     this.setState(() => {
       return { welcomeMessage: res.data.message };
     });
+  }
+
+  handleErrorResponse(err) {
+    console.log(err.response.data.message);
+    this.setState({ welcomeMessage: err.response.data.message });
   }
 
   render() {
