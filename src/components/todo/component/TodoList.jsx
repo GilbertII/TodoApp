@@ -6,17 +6,30 @@ class TodoList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      todos: [
-        // { id: 1, description: "Learning Basic React", done: false, targetDate: new Date() },
-        // { id: 2, description: "Learning Advance React", done: false, targetDate: new Date() },
-        // { id: 3, description: "Learning Expert React", done: false, targetDate: new Date() },
-      ],
+      todos: [],
+      message: null,
     };
+
+    this.handleTodoDelete = this.handleTodoDelete.bind(this);
+    this.loadTodosByUser = this.loadTodosByUser.bind(this);
+  }
+
+  handleTodoDelete(keyId) {
+    let username = AuthenticationService.getUserLoggedIn();
+    TodoDataService.deleteTodoByUserAndId(username, keyId).then((res) => {
+      {
+        this.setState({ message: `Delete of todo ${keyId} Successful!` });
+        this.loadTodosByUser(username);
+      }
+    });
   }
 
   componentDidMount() {
     let username = AuthenticationService.getUserLoggedIn();
+    this.loadTodosByUser(username);
+  }
 
+  loadTodosByUser(username) {
     TodoDataService.getAllTodosByUsers(username).then((res) => {
       console.log(res);
       this.setState(() => {
@@ -29,6 +42,7 @@ class TodoList extends Component {
     return (
       <div>
         <h1>List Todos</h1>
+        {this.state.message && <div className="alert alert-success">{this.state.message}</div>}
         <div className="container">
           <table className="table table-hover">
             <thead>
@@ -44,6 +58,14 @@ class TodoList extends Component {
                   <td>{todo.description}</td>
                   <td>{todo.targetDate.toString()}</td>
                   <td>{todo.done ? "Yes" : "No"}</td>
+                  <td>
+                    <button
+                      className="btn btn-danger"
+                      onClick={() => this.handleTodoDelete(todo.id)}
+                    >
+                      Delete
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
