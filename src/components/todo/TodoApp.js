@@ -12,6 +12,7 @@ import withNavigation from "./navigation/withNavigation";
 import TodoList from "./component/TodoList";
 import Header from "./component/Header";
 import Footer from "./component/Footer";
+import Todo from "./component/Todo";
 
 import AuthenticatedRoute from "./AuthenticatedRoute";
 
@@ -22,6 +23,11 @@ class TodoApp extends Component {
     const WelcomePageWithParams = withParams(WelcomePage);
 
     const HeaderWithNavigation = withNavigation(Header);
+
+    const TodoListWithNavigation = withNavigation(TodoList);
+
+    const TodoWithParamsAndNavigation = withParams(withNavigation(Todo));
+
     return (
       <div>
         <HeaderWithNavigation />
@@ -37,10 +43,18 @@ class TodoApp extends Component {
             }
           />
           <Route
+            path="/todos/:id"
+            element={
+              <AuthenticatedRoute>
+                <TodoWithParamsAndNavigation />
+              </AuthenticatedRoute>
+            }
+          />
+          <Route
             path="/todos"
             element={
               <AuthenticatedRoute>
-                <TodoList />
+                <TodoListWithNavigation />
               </AuthenticatedRoute>
             }
           />

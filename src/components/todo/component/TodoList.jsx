@@ -10,18 +10,22 @@ class TodoList extends Component {
       message: null,
     };
 
-    this.handleTodoDelete = this.handleTodoDelete.bind(this);
+    this.deleteTodoClicked = this.deleteTodoClicked.bind(this);
+    this.updateTodoClicked = this.updateTodoClicked.bind(this);
     this.loadTodosByUser = this.loadTodosByUser.bind(this);
   }
 
-  handleTodoDelete(keyId) {
+  deleteTodoClicked(keyId) {
     let username = AuthenticationService.getUserLoggedIn();
     TodoDataService.deleteTodoByUserAndId(username, keyId).then((res) => {
-      {
-        this.setState({ message: `Delete of todo ${keyId} Successful!` });
-        this.loadTodosByUser(username);
-      }
+      this.setState({ message: `Delete of todo ${keyId} Successful!` });
+      this.loadTodosByUser(username);
     });
+  }
+
+  updateTodoClicked(keyId) {
+    console.log(keyId);
+    this.props.navigate(`/todos/${keyId}`); //REACT-6
   }
 
   componentDidMount() {
@@ -60,8 +64,16 @@ class TodoList extends Component {
                   <td>{todo.done ? "Yes" : "No"}</td>
                   <td>
                     <button
+                      className="btn btn-success"
+                      onClick={() => this.updateTodoClicked(todo.id)}
+                    >
+                      Update
+                    </button>
+                  </td>
+                  <td>
+                    <button
                       className="btn btn-danger"
-                      onClick={() => this.handleTodoDelete(todo.id)}
+                      onClick={() => this.deleteTodoClicked(todo.id)}
                     >
                       Delete
                     </button>
