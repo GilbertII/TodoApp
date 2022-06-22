@@ -1,3 +1,4 @@
+import moment from "moment";
 import React, { Component } from "react";
 import TodoDataService from "../../../api/todo/TodoDataService";
 import AuthenticationService from "../AuthenticationService";
@@ -12,20 +13,25 @@ class TodoList extends Component {
 
     this.deleteTodoClicked = this.deleteTodoClicked.bind(this);
     this.updateTodoClicked = this.updateTodoClicked.bind(this);
+    this.addTodoClicked = this.addTodoClicked.bind(this);
     this.loadTodosByUser = this.loadTodosByUser.bind(this);
   }
 
-  deleteTodoClicked(keyId) {
+  deleteTodoClicked(id) {
     let username = AuthenticationService.getUserLoggedIn();
-    TodoDataService.deleteTodoByUserAndId(username, keyId).then((res) => {
-      this.setState({ message: `Delete of todo ${keyId} Successful!` });
+    TodoDataService.deleteTodo(username, id).then((res) => {
+      this.setState({ message: `Delete of todo ${id} Successful!` });
       this.loadTodosByUser(username);
     });
   }
 
-  updateTodoClicked(keyId) {
-    console.log(keyId);
-    this.props.navigate(`/todos/${keyId}`); //REACT-6
+  updateTodoClicked(id) {
+    console.log(`updated id=${id}`);
+    this.props.navigate(`/todos/${id}`); //REACT-6
+  }
+
+  addTodoClicked() {
+    this.props.navigate(`/todos/-1`); //REACT-6
   }
 
   componentDidMount() {
@@ -60,7 +66,7 @@ class TodoList extends Component {
               {this.state.todos.map((todo) => (
                 <tr key={todo.id}>
                   <td>{todo.description}</td>
-                  <td>{todo.targetDate.toString()}</td>
+                  <td>{moment(todo.targetDate).format("YYYY-MM-DD")}</td>
                   <td>{todo.done ? "Yes" : "No"}</td>
                   <td>
                     <button
@@ -82,6 +88,11 @@ class TodoList extends Component {
               ))}
             </tbody>
           </table>
+          <div className="row">
+            <button className="btn btn-success" onClick={this.addTodoClicked}>
+              Add
+            </button>
+          </div>
         </div>
       </div>
     );
