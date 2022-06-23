@@ -29,8 +29,14 @@ class WelcomePage extends Component {
   }
 
   handleErrorResponse(err) {
-    console.log(err.response.data.message);
-    this.setState({ welcomeMessage: err.response.data.message });
+    let errorMessage = "";
+
+    if (err.message) errorMessage += err.message;
+
+    if (err.response && err.response.data) errorMessage += err.response.data.message;
+
+    console.log(errorMessage);
+    this.setState({ welcomeMessage: errorMessage });
   }
 
   render() {
