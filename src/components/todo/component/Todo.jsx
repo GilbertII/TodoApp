@@ -42,7 +42,7 @@ class Todo extends Component {
       targetDate: values.targetDate,
     };
 
-    if (todo.id === -1) {
+    if (this.state.id === -1 || this.state.id === "-1") {
       TodoDataService.createTodo(username, todo).then(() => this.props.navigate(`/todos`));
     } else {
       TodoDataService.updateTodo(username, todo).then(() => this.props.navigate(`/todos`));
