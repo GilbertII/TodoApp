@@ -36,6 +36,12 @@ class TodoList extends Component {
 
   componentDidMount() {
     let username = AuthenticationService.getUserLoggedIn();
+    let password = AuthenticationService.getPasswordLoggedIn();
+
+    AuthenticationService.executeJwtAuthenticationService(username, password).then((res) => {
+      AuthenticationService.registerSuccessfulLoginForJwt(username, password, res.data.token);
+    });
+
     this.loadTodosByUser(username);
   }
 

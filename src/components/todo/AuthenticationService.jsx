@@ -1,35 +1,23 @@
 import axios from "axios";
 import { API_URL } from "../../Constants";
 
-export const USER_NAME_SESSION_ATTRIBUTE_NAME = "authenticatedUser";
+export const USER_NAME_SESSION_ATTRIBUTE_NAME = "username";
+export const PASSWORD_SESSION_ATTRIBUTE_NAME = "password";
+export const TOKEN_SESSION_ATTRIBUTE = "USER_TOKEN";
 
 class AuthenticationService {
   executeJwtAuthenticationService(username, password) {
     return axios.post(`${API_URL}/authenticate`, { username, password });
   }
 
-  executeBasicAuthenticationService(username, password) {
-    return axios.get(`${API_URL}/api/basicaut`, {
-      headers: { authorization: this.createBasicAuthToken(username, password) },
-    });
-  }
-
-  createBasicAuthToken(username, password) {
-    return "Basic " + window.btoa(`${username}:${password}`);
-  }
-
   createJwtToken(username, token) {
     return "Bearer " + token;
   }
 
-  registerSuccessfulLogin(username, password) {
+  registerSuccessfulLoginForJwt(username, password, token) {
     sessionStorage.setItem(USER_NAME_SESSION_ATTRIBUTE_NAME, username);
-
-    this.setupAxiosInterceptors(this.createBasicAuthToken(username, password));
-  }
-
-  registerSuccessfulLoginForJwt(username, token) {
-    sessionStorage.setItem(USER_NAME_SESSION_ATTRIBUTE_NAME, username);
+    sessionStorage.setItem(PASSWORD_SESSION_ATTRIBUTE_NAME, password);
+    sessionStorage.setItem(TOKEN_SESSION_ATTRIBUTE, token);
 
     this.setupAxiosInterceptors(this.createJwtToken(username, token));
   }
@@ -37,6 +25,8 @@ class AuthenticationService {
   logout() {
     console.log("Successfull Logout");
     sessionStorage.removeItem(USER_NAME_SESSION_ATTRIBUTE_NAME);
+    sessionStorage.removeItem(PASSWORD_SESSION_ATTRIBUTE_NAME);
+    sessionStorage.removeItem(TOKEN_SESSION_ATTRIBUTE);
   }
 
   isUserLoggedIn() {
@@ -47,21 +37,36 @@ class AuthenticationService {
   }
 
   getUserLoggedIn() {
-    let user = sessionStorage.getItem("authenticatedUser");
+    let user = sessionStorage.getItem(USER_NAME_SESSION_ATTRIBUTE_NAME);
 
     if (user === null) return "";
     else return user;
   }
 
-  setupAxiosInterceptors(token) {
-    axios.interceptors.request.use((config) => {
-      if (this.isUserLoggedIn()) {
-        config.headers.authorization = token;
-      }
+  getPasswordLoggedIn() {
+    let pass = sessionStorage.getItem(PASSWORD_SESSION_ATTRIBUTE_NAME);
 
-      return config;
-    });
-    console.log("Is loggedIn", this.isUserLoggedIn());
+    if (pass === null) return "";
+    else return pass;
+  }
+
+  setupAxiosInterceptors(token) {
+    axios.interceptors.request.use(
+      async (config) => {
+        if (this.isUserLoggedIn()) {
+          if (token) {
+            config.headers.authorization = token;
+          } else {
+            config.headers.authorization = sessionStorage.getItem(TOKEN_SESSION_ATTRIBUTE);
+          }
+        }
+
+        return config;
+      },
+      (error) => {
+        Promise.reject(error);
+      }
+    );
   }
 }
 
